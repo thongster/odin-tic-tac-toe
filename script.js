@@ -35,10 +35,6 @@ const gameFlow = function() {
         return combo.every((num) => player.getSelection().includes(num));
     };
 
-    function deteremineTie(player, combo) {}
-
-    function 
-
     return {playGame, determineWinner}
 };
 
@@ -53,6 +49,9 @@ while (gameOver === false) {
             gameOver = true;
         } else if ((gameFlow().determineWinner(playerTwo, gameBoard[combo]))) {
             console.log("Player Two wins");
+            gameOver = true;
+        } else if (playerOne.getSelection().length + playerTwo.getSelection().length >= 9) {
+            console.log("It's a Tie!")
             gameOver = true;
         };
     };
