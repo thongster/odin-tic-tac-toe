@@ -1,4 +1,7 @@
 const gameBoard = {
+gameSelection: ["topLeft", "topMiddle", "topRight", 
+                "middleLeft", "middleMiddle", "middleRight", 
+                "bottomLeft", "bottomMiddle", "bottomRight"],
 comboOne: ["topLeft", "topMiddle", "topRight"],
 comboTwo: ["middleLeft", "middleMiddle", "middleRight"],
 comboThree: ["bottomLeft", "bottomMiddle", "bottomRight"],
@@ -61,10 +64,10 @@ const gameFlow = function() {
 };
 
 const gameDisplay = function() {
-
+    const display = document.querySelector(".display");
+    
     function showGrid() {
-        const display = document.querySelector(".display");
-
+    
         for (let i = 0; i < 9; i++) {
             const gameSquare = document.createElement("div");
             gameSquare.classList.add("gameSquare");
@@ -74,8 +77,15 @@ const gameDisplay = function() {
             }
         };
 
-        return {display, gameSquare};
+        return {gameSquare};
     };
 
-    return {showGrid};
+    let box = display.querySelectorAll("div");
+    for (let i = 0; i < box.length; i++) {
+        box[i].id = gameBoard.gameSelection[i];
+    };
+
+    console.log(box);
+    
+    return {showGrid, display, box};
 };
