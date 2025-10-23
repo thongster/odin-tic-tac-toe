@@ -26,33 +26,56 @@ const playerTwo = createPlayer("Tuyen");
 
 const gameFlow = function() {
 
-    function playGame() {
+    function playerChoice() {
         playerOne.addSelection(prompt("Player 1, choose: "));
         playerTwo.addSelection(prompt("Player 2, choose: "));
-    }
+    };
 
     function determineWinner(player, combo) {
         return combo.every((num) => player.getSelection().includes(num));
     };
 
-    return {playGame, determineWinner}
+    function playGame() {
+        let gameOver = false;
+        while (gameOver === false) {
+            gameFlow().playerChoice();
+            // for "every" element in the selected combo, check if it includes the player selection
+            for (let combo in gameBoard) {
+                if (gameFlow().determineWinner(playerOne, gameBoard[combo])) {
+                    console.log("Player One wins");
+                    gameOver = true;
+                    break;
+                } else if ((gameFlow().determineWinner(playerTwo, gameBoard[combo]))) {
+                    console.log("Player Two wins");
+                    gameOver = true;
+                    break;
+                } else if (playerOne.getSelection().length + playerTwo.getSelection().length >= 9) {
+                    console.log("It's a Tie!")
+                    gameOver = true;
+                    break;
+                };
+            };
+        };
+    }
+    return {playerChoice, determineWinner, playGame}
 };
 
+const gameDisplay = function() {
 
-let gameOver = false;
-while (gameOver === false) {
-    gameFlow().playGame();
-    // for "every" element in the selected combo, check if it includes the player selection
-    for (let combo in gameBoard) {
-        if (gameFlow().determineWinner(playerOne, gameBoard[combo])) {
-            console.log("Player One wins");
-            gameOver = true;
-        } else if ((gameFlow().determineWinner(playerTwo, gameBoard[combo]))) {
-            console.log("Player Two wins");
-            gameOver = true;
-        } else if (playerOne.getSelection().length + playerTwo.getSelection().length >= 9) {
-            console.log("It's a Tie!")
-            gameOver = true;
+    function showGrid() {
+        const display = document.querySelector(".display");
+
+        for (let i = 0; i < 9; i++) {
+            const gameSquare = document.createElement("div");
+            gameSquare.classList.add("gameSquare");
+            display.append(gameSquare);
+            if (i === 8) {
+                return {gameSquare};
+            }
         };
+
+        return {display, gameSquare};
     };
+
+    return {showGrid};
 };
