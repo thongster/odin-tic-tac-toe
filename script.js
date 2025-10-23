@@ -27,22 +27,33 @@ const playerTwo = createPlayer("Tuyen");
 const gameFlow = function() {
 
     function playGame() {
-        playerOne.addSelection(prompt("Player 1, 1st choice: "));
-        playerTwo.addSelection(prompt("Player 2, 1st choice: "));
+        playerOne.addSelection(prompt("Player 1, choose: "));
+        playerTwo.addSelection(prompt("Player 2, choose: "));
     }
 
-    function contains(player, combo) {
+    function determineWinner(player, combo) {
         return combo.every((num) => player.getSelection().includes(num));
     };
 
-    return {playGame, contains}
+    function deteremineTie(player, combo) {}
+
+    function 
+
+    return {playGame, determineWinner}
 };
 
-// for "every" element in the selected combo, check if it includes the player selection
-for (let combo in gameBoard) {
-    if (gameFlow().contains(playerOne, gameBoard[combo])) {
-        console.log("Player One wins");
-    } else if ((gameFlow().contains(playerTwo, gameBoard[combo]))) {
-        console.log("Player Two wins");
+
+let gameOver = false;
+while (gameOver === false) {
+    gameFlow().playGame();
+    // for "every" element in the selected combo, check if it includes the player selection
+    for (let combo in gameBoard) {
+        if (gameFlow().determineWinner(playerOne, gameBoard[combo])) {
+            console.log("Player One wins");
+            gameOver = true;
+        } else if ((gameFlow().determineWinner(playerTwo, gameBoard[combo]))) {
+            console.log("Player Two wins");
+            gameOver = true;
+        };
     };
 };
