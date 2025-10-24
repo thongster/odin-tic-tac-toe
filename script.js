@@ -33,20 +33,26 @@ const gameFlow = function() {
         return combo.every((num) => player.getSelection().includes(num));
     };
 
+    // initialize before function to avoid
+    let isGameOver = false;
+
     function playGame() {
-        let isGameOver = false;
         // loop through winning combos, toggle gameOver if winner is determined or tie
-        for (let combo in gameBoard) {
-            if (gameFlow().determineWinner(playerOne, gameBoard[combo])) {
-                console.log("Player One wins");
-                isGameOver = true;
-            } else if ((gameFlow().determineWinner(playerTwo, gameBoard[combo]))) {
-                console.log("Player Two wins");
-                isGameOver = true;
-            } else if (playerOne.getSelection().length + playerTwo.getSelection().length >= 9) {
-                console.log("It's a Tie!")
-                isGameOver = true;
+        if (isGameOver === false) {    
+            for (let combo in gameBoard) {
+                if (determineWinner(playerOne, gameBoard[combo])) {
+                    console.log("Player One wins");
+                    isGameOver = true;
+                } else if ((determineWinner(playerTwo, gameBoard[combo]))) {
+                    console.log("Player Two wins");
+                    isGameOver = true;
+                } else if (playerOne.getSelection().length + playerTwo.getSelection().length >= 9) {
+                    console.log("It's a Tie!")
+                    isGameOver = true;
+                };
             };
+        } else {
+            return;
         };
         return {isGameOver};
     };
@@ -55,7 +61,7 @@ const gameFlow = function() {
 
     };
 
-    return {determineWinner, playGame, runGameOver}
+    return {determineWinner, playGame, runGameOver, getIsGameOver() {return isGameOver}}
 };
 
 const gameDisplay = function() {
@@ -85,7 +91,7 @@ const gameDisplay = function() {
         // add event listener to each box that runs addSelection based on css id
         box.forEach(function(event) {
             event.addEventListener("click", function(button) {
-                if (gameFlow().playGame().isGameOver === true) {
+                if (gameInstance.getIsGameOver() === true) {
                     return;
                 };
                 if (playerOneTurn === true) {
@@ -100,6 +106,7 @@ const gameDisplay = function() {
                     playerTwo.addSelection(`${button.target.id}`)
                     gameInstance.playGame();
                 };
+                console.log(gameInstance.getIsGameOver())
             });
         });
     };
