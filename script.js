@@ -30,6 +30,7 @@ const playerTwo = createPlayer("Tuyen");
 const gameFlow = function() {
 
     function playerChoice() {
+        
         playerOne.addSelection(prompt("Player 1, choose: "));
         playerTwo.addSelection(prompt("Player 2, choose: "));
     };
@@ -41,7 +42,7 @@ const gameFlow = function() {
     function playGame() {
         let gameOver = false;
         while (gameOver === false) {
-            gameFlow().playerChoice();
+            // gameFlow().playerChoice();
             // for "every" element in the selected combo, check if it includes the player selection
             for (let combo in gameBoard) {
                 if (gameFlow().determineWinner(playerOne, gameBoard[combo])) {
@@ -78,13 +79,22 @@ const gameDisplay = function() {
     function assignSquare() {
         // select nodelist of all 9 divs
         // assign them id names based on gameBoard.gameSelection
-        let box = display.querySelectorAll("div");
+        const box = display.querySelectorAll("div");
         for (let i = 0; i < box.length; i++) {
             box[i].id = gameBoard.gameSelection[i];
         };
+
+        box.forEach(function(event) {
+            event.addEventListener("click", function(button) {
+                event.textContent = "X";
+                playerOne.addSelection(`${button.target.id}`)
+                
+            });
+        });
         
         return {box};
     };
         
     return {showGrid, display, assignSquare};
 };
+
