@@ -67,25 +67,24 @@ const gameDisplay = function() {
     const display = document.querySelector(".display");
     
     function showGrid() {
-    
+        // create 9 divs for tic tac toe grid
         for (let i = 0; i < 9; i++) {
             const gameSquare = document.createElement("div");
             gameSquare.classList.add("gameSquare");
             display.append(gameSquare);
-            if (i === 8) {
-                return {gameSquare};
-            }
         };
-
-        return {gameSquare};
     };
 
-    let box = display.querySelectorAll("div");
-    for (let i = 0; i < box.length; i++) {
-        box[i].id = gameBoard.gameSelection[i];
+    function assignSquare() {
+        // select nodelist of all 9 divs
+        // assign them id names based on gameBoard.gameSelection
+        let box = display.querySelectorAll("div");
+        for (let i = 0; i < box.length; i++) {
+            box[i].id = gameBoard.gameSelection[i];
+        };
+        
+        return {box};
     };
-
-    console.log(box);
-    
-    return {showGrid, display, box};
+        
+    return {showGrid, display, assignSquare};
 };
