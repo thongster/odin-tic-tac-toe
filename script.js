@@ -30,7 +30,6 @@ const playerTwo = createPlayer("Tuyen");
 const gameFlow = function() {
 
     function playerChoice() {
-        
         playerOne.addSelection(prompt("Player 1, choose: "));
         playerTwo.addSelection(prompt("Player 2, choose: "));
     };
@@ -41,7 +40,7 @@ const gameFlow = function() {
 
     function playGame() {
         let gameOver = false;
-        while (gameOver === false) {
+        // while (gameOver === false) {
             // gameFlow().playerChoice();
             // for "every" element in the selected combo, check if it includes the player selection
             for (let combo in gameBoard) {
@@ -59,7 +58,8 @@ const gameFlow = function() {
                     break;
                 };
             };
-        };
+            return {gameOver};
+        // };
     }
     return {playerChoice, determineWinner, playGame}
 };
@@ -84,15 +84,31 @@ const gameDisplay = function() {
             box[i].id = gameBoard.gameSelection[i];
         };
 
+        // loop through box nodelist to get individual divs
+        // add event listener to each box that runs addSelection based on css id
+        let playerOneTurn = true;
         box.forEach(function(event) {
+            
+
             event.addEventListener("click", function(button) {
-                event.textContent = "X";
-                playerOne.addSelection(`${button.target.id}`)
-                
+                if (playerOneTurn === true) {
+                    event.textContent = "X";
+                    playerOneTurn = false;
+                    playerOne.addSelection(`${button.target.id}`)
+                } else {
+                    event.textContent = "O";
+                    playerTwo.addSelection(`${button.target.id}`)
+                    playerOneTurn = true;
+                };
+
+                // run game logic to check winner/tie after every click
+                gameFlow().playGame();
+                if (gameFlow().playGame().gameOver === true) {
+                    console.log("it works");
+                    return;
+                };
             });
-        });
-        
-        return {box};
+        });        
     };
         
     return {showGrid, display, assignSquare};

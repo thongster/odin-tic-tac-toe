@@ -57,9 +57,14 @@ h1, h2, h3, h4, h5, h6 {
   grid-template-columns: repeat(3, 200px);
   grid-template-rows: repeat(3, 200px);
   border: 1px solid red;
+  justify-content: center;
 }
 
 .gameSquare {
+  display: grid;
   aspect-ratio: 1 / 1;
   border: 1px solid blue;
+  font-size: 8rem;
+  justify-content: center;
+  align-items: center;
 }
