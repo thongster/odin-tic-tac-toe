@@ -1,27 +1,25 @@
 const gameBoard = {
-gameSelection: ["topLeft", "topMiddle", "topRight", 
-                "middleLeft", "middleMiddle", "middleRight", 
-                "bottomLeft", "bottomMiddle", "bottomRight"],
-comboOne: ["topLeft", "topMiddle", "topRight"],
-comboTwo: ["middleLeft", "middleMiddle", "middleRight"],
-comboThree: ["bottomLeft", "bottomMiddle", "bottomRight"],
-comboFour: ["topLeft", "middleLeft", "bottomLeft"],
-comboFive: ["topMiddle", "middleMiddle", "bottomMiddle"],
-comboSix: ["topRight", "middleRight", "bottomRight"],
-comboSeven: ["topLeft", "middleMiddle", "bottomRight"],
-comboEight: ["topRight", "middleMiddle", "bottomLeft"],
+    gameSelection: ["topLeft", "topMiddle", "topRight", 
+                    "middleLeft", "middleMiddle", "middleRight", 
+                    "bottomLeft", "bottomMiddle", "bottomRight"],
+    comboOne: ["topLeft", "topMiddle", "topRight"],
+    comboTwo: ["middleLeft", "middleMiddle", "middleRight"],
+    comboThree: ["bottomLeft", "bottomMiddle", "bottomRight"],
+    comboFour: ["topLeft", "middleLeft", "bottomLeft"],
+    comboFive: ["topMiddle", "middleMiddle", "bottomMiddle"],
+    comboSix: ["topRight", "middleRight", "bottomRight"],
+    comboSeven: ["topLeft", "middleMiddle", "bottomRight"],
+    comboEight: ["topRight", "middleMiddle", "bottomLeft"],
 };
 
 function createPlayer(name) {
-    let score = 0;
     let selection = [];
-    const getScore = () => score;
-    const addScore = () => score = score + 1;
     const getSelection = () => selection;
     const addSelection = function(choice) {
         selection.push(choice);
     };
-    return {name, getScore, addScore, getSelection, addSelection};
+    const clearSelection = () => selection.splice(0, selection.length);
+    return {name, getSelection, addSelection, clearSelection};
 };
 
 const playerOne = createPlayer("Toan");
@@ -57,6 +55,14 @@ const gameFlow = function() {
     };
 
     function runGameOver() {
+        // clear selection arrays
+        playerOne.clearSelection();
+        playerTwo.clearSelection();
+
+        // clear dom
+        const display = document.querySelector(".display");
+        const box = display.querySelectorAll("div");
+        box.forEach((square) => square.textContent = "");
 
     };
 
@@ -110,3 +116,6 @@ const gameDisplay = function() {
         
     return {showGrid, display, assignSquare};
 };
+
+gameDisplay().showGrid()
+gameDisplay().assignSquare()
