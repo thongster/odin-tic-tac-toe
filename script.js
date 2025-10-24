@@ -29,39 +29,33 @@ const playerTwo = createPlayer("Tuyen");
 
 const gameFlow = function() {
 
-    function playerChoice() {
-        playerOne.addSelection(prompt("Player 1, choose: "));
-        playerTwo.addSelection(prompt("Player 2, choose: "));
-    };
-
     function determineWinner(player, combo) {
         return combo.every((num) => player.getSelection().includes(num));
     };
 
     function playGame() {
-        let gameOver = false;
-        // while (gameOver === false) {
-            // gameFlow().playerChoice();
-            // for "every" element in the selected combo, check if it includes the player selection
-            for (let combo in gameBoard) {
-                if (gameFlow().determineWinner(playerOne, gameBoard[combo])) {
-                    console.log("Player One wins");
-                    gameOver = true;
-                    break;
-                } else if ((gameFlow().determineWinner(playerTwo, gameBoard[combo]))) {
-                    console.log("Player Two wins");
-                    gameOver = true;
-                    break;
-                } else if (playerOne.getSelection().length + playerTwo.getSelection().length >= 9) {
-                    console.log("It's a Tie!")
-                    gameOver = true;
-                    break;
-                };
+        let isGameOver = false;
+        // loop through winning combos, toggle gameOver if winner is determined or tie
+        for (let combo in gameBoard) {
+            if (gameFlow().determineWinner(playerOne, gameBoard[combo])) {
+                console.log("Player One wins");
+                isGameOver = true;
+            } else if ((gameFlow().determineWinner(playerTwo, gameBoard[combo]))) {
+                console.log("Player Two wins");
+                isGameOver = true;
+            } else if (playerOne.getSelection().length + playerTwo.getSelection().length >= 9) {
+                console.log("It's a Tie!")
+                isGameOver = true;
             };
-            return {gameOver};
-        // };
-    }
-    return {playerChoice, determineWinner, playGame}
+        };
+        return {isGameOver};
+    };
+
+    function runGameOver() {
+
+    };
+
+    return {determineWinner, playGame, runGameOver}
 };
 
 const gameDisplay = function() {
@@ -84,33 +78,31 @@ const gameDisplay = function() {
             box[i].id = gameBoard.gameSelection[i];
         };
 
+        let playerOneTurn = true;
+        // create gameInstance so new object (game) is not being created every loop
+        const gameInstance = gameFlow();
         // loop through box nodelist to get individual divs
         // add event listener to each box that runs addSelection based on css id
-        let playerOneTurn = true;
         box.forEach(function(event) {
-            
-
             event.addEventListener("click", function(button) {
+                if (gameFlow().playGame().isGameOver === true) {
+                    return;
+                };
                 if (playerOneTurn === true) {
                     event.textContent = "X";
                     playerOneTurn = false;
                     playerOne.addSelection(`${button.target.id}`)
-                } else {
+                    // run game logic to check winner/tie after every click
+                    gameInstance.playGame();
+                } else if (playerOneTurn === false) {
                     event.textContent = "O";
-                    playerTwo.addSelection(`${button.target.id}`)
                     playerOneTurn = true;
-                };
-
-                // run game logic to check winner/tie after every click
-                gameFlow().playGame();
-                if (gameFlow().playGame().gameOver === true) {
-                    console.log("it works");
-                    return;
+                    playerTwo.addSelection(`${button.target.id}`)
+                    gameInstance.playGame();
                 };
             });
-        });        
+        });
     };
         
     return {showGrid, display, assignSquare};
 };
-
