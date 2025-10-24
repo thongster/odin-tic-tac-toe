@@ -33,9 +33,8 @@ const gameFlow = function() {
         return combo.every((num) => player.getSelection().includes(num));
     };
 
-    // initialize before function to avoid
+    // initialize before function to avoid repeating declaration
     let isGameOver = false;
-
     function playGame() {
         // loop through winning combos, toggle gameOver if winner is determined or tie
         if (isGameOver === false) {    
@@ -91,22 +90,20 @@ const gameDisplay = function() {
         // add event listener to each box that runs addSelection based on css id
         box.forEach(function(event) {
             event.addEventListener("click", function(button) {
-                if (gameInstance.getIsGameOver() === true) {
-                    return;
-                };
-                if (playerOneTurn === true) {
-                    event.textContent = "X";
-                    playerOneTurn = false;
-                    playerOne.addSelection(`${button.target.id}`)
-                    // run game logic to check winner/tie after every click
-                    gameInstance.playGame();
-                } else if (playerOneTurn === false) {
-                    event.textContent = "O";
-                    playerOneTurn = true;
-                    playerTwo.addSelection(`${button.target.id}`)
-                    gameInstance.playGame();
-                };
-                console.log(gameInstance.getIsGameOver())
+                if (gameInstance.getIsGameOver() === true) return;
+                
+                // determine player turn
+                let currentPlayer = playerOneTurn ? playerOne : playerTwo;
+                // determine symbol
+                let symbol = playerOneTurn ? "X" : "O";
+
+                // if the space is empty, then allow edit of dom and addselection
+                if (event.textContent === "") {
+                    currentPlayer.addSelection(button.target.id)
+                    event.textContent = symbol;
+                }
+                gameInstance.playGame();
+                playerOneTurn = !playerOneTurn;
             });
         });
     };
