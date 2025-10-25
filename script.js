@@ -33,6 +33,8 @@ const controlBoard = function() {
     const playerTwoName = document.querySelector(".playerTwoName");
     const playerTwoInput = document.querySelector("#pTwoName");
     const versus = document.querySelector(".versus");
+    const resetNames = document.querySelector(".resetNames");
+    const resetGame = document.querySelector(".resetGame");
 
     // create default players
     function defaultPlayers() {
@@ -64,7 +66,15 @@ const controlBoard = function() {
         }
         updateVersus();
     });
-    
+
+    // reset names object, dom, and text inside input field
+    resetNames.addEventListener("click", () => {
+        players.playerOne = createPlayer("Player One");
+        players.playerTwo = createPlayer("Player Two");
+        playerOneInput.value = "";
+        playerTwoInput.value = "";
+        updateVersus();
+    });
 
     return {defaultPlayers, updateVersus};
 };
