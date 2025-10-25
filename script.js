@@ -22,6 +22,12 @@ function createPlayer(name) {
     return {name, getSelection, addSelection, clearSelection};
 };
 
+const controlBoard = function() {
+    const controls = display.querySelector(".controls");
+    
+
+
+};
 const playerOne = createPlayer("Toan");
 const playerTwo = createPlayer("Tuyen");
 
