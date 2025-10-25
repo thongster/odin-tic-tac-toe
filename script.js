@@ -22,14 +22,29 @@ function createPlayer(name) {
     return {name, getSelection, addSelection, clearSelection};
 };
 
-const controlBoard = function() {
-    const controls = display.querySelector(".controls");
-    
-
-
+const players = {
+    playerOne: "Player One",
+    playerTwo: "Player Two"
 };
-const playerOne = createPlayer("Toan");
-const playerTwo = createPlayer("Tuyen");
+
+const controlBoard = function() {
+    const playerOneName = document.querySelector(".playerOneName");
+    const playerOneInput = document.querySelector("#pOneName");
+    const playerTwoName = document.querySelector(".playerTwoName");
+    const playerTwoInput = document.querySelector("#pTwoName");
+
+    playerOneName.addEventListener("submit", (e) => {
+        e.preventDefault();
+        players.playerOne = createPlayer(playerOneInput.value);
+    });
+    playerTwoName.addEventListener("submit", (e) => {
+        e.preventDefault();
+        players.playerTwo = createPlayer(playerTwoInput.value);
+    });
+};
+
+// const playerOne = createPlayer("Toan");
+// const playerTwo = createPlayer("Tuyen");
 
 const gameFlow = function() {
 
@@ -78,6 +93,7 @@ const gameFlow = function() {
 const gameDisplay = function() {
     const display = document.querySelector(".display");
     
+    
     function showGrid() {
         // create 9 divs for tic tac toe grid
         for (let i = 0; i < 9; i++) {
@@ -94,7 +110,7 @@ const gameDisplay = function() {
         for (let i = 0; i < box.length; i++) {
             box[i].id = gameBoard.gameSelection[i];
         };
-
+        
         let playerOneTurn = true;
         // create gameInstance so new object (game) is not being created every loop
         const gameInstance = gameFlow();
@@ -120,7 +136,7 @@ const gameDisplay = function() {
         });
     };
         
-    return {showGrid, display, assignSquare};
+    return {showGrid, assignSquare};
 };
 
 gameDisplay().showGrid()
