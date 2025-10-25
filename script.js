@@ -76,6 +76,12 @@ const controlBoard = function() {
         updateVersus();
     });
 
+    // reset game button
+    resetGame.addEventListener("click", () => {
+        gameFlow().runGameOver();
+        gameDisplay().assignSquare();
+    });
+
     return {defaultPlayers, updateVersus};
 };
 
@@ -91,13 +97,13 @@ const gameFlow = function() {
         // loop through winning combos, toggle gameOver if winner is determined or tie
         if (isGameOver === false) {    
             for (let combo in gameBoard) {
-                if (determineWinner(playerOne, gameBoard[combo])) {
+                if (determineWinner(players.playerOne, gameBoard[combo])) {
                     console.log("Player One wins");
                     isGameOver = true;
-                } else if ((determineWinner(playerTwo, gameBoard[combo]))) {
+                } else if ((determineWinner(players.playerTwo, gameBoard[combo]))) {
                     console.log("Player Two wins");
                     isGameOver = true;
-                } else if (playerOne.getSelection().length + playerTwo.getSelection().length >= 9) {
+                } else if (players.playerOne.getSelection().length + players.playerTwo.getSelection().length >= 9) {
                     console.log("It's a Tie!")
                     isGameOver = true;
                 };
@@ -110,8 +116,8 @@ const gameFlow = function() {
 
     function runGameOver() {
         // clear selection arrays
-        playerOne.clearSelection();
-        playerTwo.clearSelection();
+        players.playerOne.clearSelection();
+        players.playerTwo.clearSelection();
 
         // clear dom
         const display = document.querySelector(".display");
@@ -154,7 +160,7 @@ const gameDisplay = function() {
                 if (gameInstance.getIsGameOver() === true) return;
                 
                 // determine player turn
-                let currentPlayer = playerOneTurn ? playerOne : playerTwo;
+                let currentPlayer = playerOneTurn ? players.playerOne : players.playerTwo;
                 // determine symbol
                 let symbol = playerOneTurn ? "X" : "O";
 
