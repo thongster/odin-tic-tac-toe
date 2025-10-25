@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 *, *::before, *::after {
   box-sizing: border-box;
 }
@@ -15,6 +17,20 @@
 body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+  background: #2f2f2f url('https://www.transparenttextures.com/patterns/dark-mosaic.png');
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
+
+  display: flex;
+  flex-direction: column;
+  justify-self: center;
+  align-items: center;
+
+  width: 650px;
+  height: 100vh;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+
+  color: white;
 }
 
 img, picture, video, canvas, svg {
@@ -41,30 +57,147 @@ h1, h2, h3, h4, h5, h6 {
   isolation: isolate;
 }
 
-.footer {
-  grid-column: 1 / -1;
-  justify-self: center;
-  align-content: center;
+footer {
   height: 3rem;
+  padding-top: 2rem;
+  padding-bottom: 3rem;
 }
 
-.footer a {
-  color: black;
+footer a {
+  color: rgb(255, 255, 255);
+}
+
+header {
+  text-shadow: 0 2px 1px #1a1a1a, 0 -1px 1px #555;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  font-size: 2rem;
+}
+
+.controls {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.playerOneName {
+  grid-column: 1 / 4;
+  grid-row: 1 / 2;
+}
+
+.playerTwoName {
+  grid-column: 1 / 4;
+  grid-row: 2 / 3;
+}
+
+.playerOneName button, .playerTwoName button {
+  margin-left: 0.25rem;
+}
+
+.resetNames {
+  grid-column: 4 / 5;
+  grid-row: 1 / 2;
+  align-self: end;
+}
+
+.resetGame {
+  grid-column: 4 / 5;
+  grid-row: 2 / 3;
+  align-self: end;
+}
+
+.controls div:last-child {
+  grid-column: 1 / -1;
 }
 
 .display {
   display: grid;
   grid-template-columns: repeat(3, 200px);
   grid-template-rows: repeat(3, 200px);
-  border: 1px solid red;
-  justify-content: center;
+  justify-self: center;
+  box-shadow: inset 0 2px 5px #1c1c1c, 0 0 10px rgba(0,0,0,0.5);
+  width: fit-content;
+  gap: 0.5rem;
+  background: #2f2f2f;
+  border-radius: 12px;
+  padding: 1rem;
+  margin-top: 1rem;
 }
 
 .gameSquare {
-  display: grid;
-  aspect-ratio: 1 / 1;
-  border: 1px solid blue;
-  font-size: 8rem;
-  justify-content: center;
+  display: flex;
   align-items: center;
+  justify-content: center;
+  aspect-ratio: 1 / 1;
+  background: linear-gradient(145deg, #404040, #2b2b2b);
+  border-radius: 8px;
+  box-shadow: inset 0 2px 4px #1a1a1a, inset 0 -2px 4px #555;
+  cursor: pointer;
+  color: #cfa45d;
+  font-size: 8rem;
+  transition: color 0.3s ease, transform 0.1s ease;
+  text-shadow:
+    0 2px 1px rgba(255, 255, 255, 1),
+    0 -2px 1px rgba(0, 0, 0, 1);
+}
+
+.gameSquare:hover {
+  transform: scale(1.05);
+}
+
+input {
+  background: #2b2b2b;
+  border: 1px solid #555;
+  border-radius: 6px;
+  color: #e0e0e0;
+  padding: 0.5rem;
+  font-size: 1rem;
+  outline: none;
+  box-shadow: inset 0 1px 2px #000;
+  transition: border 0.2s ease;
+}
+
+input:focus {
+  border-color: #cfa45d;
+}
+
+button {
+  background: linear-gradient(to bottom, #595959, #404040);
+  border: none;
+  border-radius: 8px;
+  padding: 0.7rem 1.2rem;
+  color: #f2f2f2;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 3px #000, inset 0 1px 0 #666;
+}
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px #000, inset 0 1px 0 #777;
+  color: #cfa45d;
+}
+button:active {
+  transform: translateY(1px);
+  box-shadow: inset 0 2px 3px #111;
+}
+
+.versus, .status {
+  font-size: 1.5rem;
+  text-align: center;
+  color: #cfa45d;
+  text-shadow: 0 1px 0 #000;
+}
+
+.status {
+  animation: glow 1s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from { text-shadow: 0 0 2px #cfa45d; }
+  to { text-shadow: 0 0 10px #cfa45d; }
 }

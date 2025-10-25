@@ -1,3 +1,4 @@
+// all possible positions and winning combos
 const gameBoard = {
     gameSelection: ["topLeft", "topMiddle", "topRight", 
                     "middleLeft", "middleMiddle", "middleRight", 
@@ -12,6 +13,7 @@ const gameBoard = {
     comboEight: ["topRight", "middleMiddle", "bottomLeft"],
 };
 
+// player object and factory
 function createPlayer(name) {
     let selection = [];
     const getSelection = () => selection;
@@ -28,6 +30,7 @@ const players = {
 };
 
 const controlBoard = function() {
+    // get dom elements
     const playerOneName = document.querySelector(".playerOneName");
     const playerOneInput = document.querySelector("#pOneName");
     const playerTwoName = document.querySelector(".playerTwoName");
@@ -89,6 +92,7 @@ const controlBoard = function() {
 
 const gameFlow = function() {
 
+    // for every combo, check if player selection includes
     function determineWinner(player, combo) {
         return combo.every((num) => player.getSelection().includes(num));
     };
