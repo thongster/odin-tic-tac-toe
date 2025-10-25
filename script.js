@@ -35,6 +35,7 @@ const controlBoard = function() {
     const versus = document.querySelector(".versus");
     const resetNames = document.querySelector(".resetNames");
     const resetGame = document.querySelector(".resetGame");
+    const status = document.querySelector(".status");
 
     // create default players
     function defaultPlayers() {
@@ -80,9 +81,10 @@ const controlBoard = function() {
     resetGame.addEventListener("click", () => {
         gameFlow().runGameOver();
         gameDisplay().assignSquare();
+        status.textContent = "Winner: ";
     });
 
-    return {defaultPlayers, updateVersus};
+    return {defaultPlayers, updateVersus, status};
 };
 
 const gameFlow = function() {
@@ -91,20 +93,26 @@ const gameFlow = function() {
         return combo.every((num) => player.getSelection().includes(num));
     };
 
+    // for dom manipulation
+    const status = document.querySelector(".status");
+
     // initialize before function to avoid repeating declaration
     let isGameOver = false;
+    let isTie = true;
     function playGame() {
         // loop through winning combos, toggle gameOver if winner is determined or tie
         if (isGameOver === false) {    
             for (let combo in gameBoard) {
                 if (determineWinner(players.playerOne, gameBoard[combo])) {
-                    console.log("Player One wins");
+                    status.textContent = `Winner: ${players.playerOne.name}`
                     isGameOver = true;
-                } else if ((determineWinner(players.playerTwo, gameBoard[combo]))) {
-                    console.log("Player Two wins");
+                    isTie = false;
+                } else if (determineWinner(players.playerTwo, gameBoard[combo])) {
+                    status.textContent = `Winner: ${players.playerTwo.name}`
                     isGameOver = true;
-                } else if (players.playerOne.getSelection().length + players.playerTwo.getSelection().length >= 9) {
-                    console.log("It's a Tie!")
+                    isTie = false;
+                } else if (players.playerOne.getSelection().length + players.playerTwo.getSelection().length === 9 && isTie === true) {
+                    status.textContent = `Winner: It's a Tie!`
                     isGameOver = true;
                 };
             };
