@@ -32,19 +32,42 @@ const controlBoard = function() {
     const playerOneInput = document.querySelector("#pOneName");
     const playerTwoName = document.querySelector(".playerTwoName");
     const playerTwoInput = document.querySelector("#pTwoName");
+    const versus = document.querySelector(".versus");
 
+    // create default players
+    function defaultPlayers() {
+        players.playerOne = createPlayer("Player One");
+        players.playerTwo = createPlayer("Player Two");
+    };
+
+    // update versus names on dom
+    function updateVersus() {
+        versus.textContent = `${players.playerOne.name} vs. ${players.playerTwo.name}`;
+    };
+
+    // when form submits for each name, update player object names and update dom
     playerOneName.addEventListener("submit", (e) => {
         e.preventDefault();
-        players.playerOne = createPlayer(playerOneInput.value);
+        if (playerOneInput.value === "") {
+            players.playerOne = createPlayer("Player One");
+        } else {
+            players.playerOne = createPlayer(playerOneInput.value);
+        };
+        updateVersus();
     });
     playerTwoName.addEventListener("submit", (e) => {
         e.preventDefault();
-        players.playerTwo = createPlayer(playerTwoInput.value);
+        if (playerTwoInput.value === "") {
+            players.playerTwo = createPlayer("Player Two");
+        } else {
+            players.playerTwo = createPlayer(playerTwoInput.value);
+        }
+        updateVersus();
     });
-};
+    
 
-// const playerOne = createPlayer("Toan");
-// const playerTwo = createPlayer("Tuyen");
+    return {defaultPlayers, updateVersus};
+};
 
 const gameFlow = function() {
 
@@ -139,5 +162,7 @@ const gameDisplay = function() {
     return {showGrid, assignSquare};
 };
 
-gameDisplay().showGrid()
-gameDisplay().assignSquare()
+gameDisplay().showGrid();
+gameDisplay().assignSquare();
+controlBoard().defaultPlayers();
+controlBoard().updateVersus();
