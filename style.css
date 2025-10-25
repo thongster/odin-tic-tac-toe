@@ -201,3 +201,109 @@ button:active {
   from { text-shadow: 0 0 2px #cfa45d; }
   to { text-shadow: 0 0 10px #cfa45d; }
 }
+
+@media (max-width: 600px) {
+  body {
+    width: 100vw;
+  }
+
+  header {
+    font-size: 1rem;
+  }
+
+  .display {
+    grid-template-columns: repeat(3, minmax(100px, 1fr));
+    grid-template-rows: repeat(3, minmax(100px, 1fr));
+  }
+
+  .gameSquare {
+    font-size: 3rem;
+  }
+
+  .controls {
+    display: flex;
+    flex-direction: column;
+    margin: 0 1rem 0 1rem;
+  }
+
+  .playerOneName {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+  }
+
+  .playerTwoName {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+  }
+  
+  .playerOneName label, .playerTwoName label {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+  }
+
+  .playerOneName input, .playerTwoName input {
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+  }
+
+  .playerOneName button, .playerTwoName button {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+    height: 3rem;
+    width: 100%;
+    padding: 0 0.5rem 0 0.5rem;
+    font-size: 1rem;
+  }
+
+  .resetNames {
+    grid-column: 1 / -1;
+    width: 100%;
+  }
+
+  .resetGame {
+    grid-column: 1 / -1;
+    width: 100%;
+  }
+
+  .versus, .status {
+    font-size: 1.25rem;
+  }
+
+  input {
+    background: #2b2b2b;
+    border: 1px solid #555;
+    border-radius: 6px;
+    color: #e0e0e0;
+    outline: none;
+    box-shadow: inset 0 1px 2px #000;
+    transition: border 0.2s ease;
+    padding: 0;
+    width: 100%;
+  }
+
+  input:focus {
+    border-color: #cfa45d;
+  }
+
+  button {
+    background: linear-gradient(to bottom, #595959, #404040);
+    border: none;
+    border-radius: 8px;
+    color: #f2f2f2;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 3px #000, inset 0 1px 0 #666;
+  }
+  button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px #000, inset 0 1px 0 #777;
+    color: #cfa45d;
+  }
+  button:active {
+    transform: translateY(1px);
+    box-shadow: inset 0 2px 3px #111;
+  }
+
+
+}
