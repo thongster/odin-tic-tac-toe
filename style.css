@@ -82,6 +82,7 @@ header {
   justify-content: center;
   align-items: center;
   gap: 1rem;
+  width: 100%;
 }
 
 .playerOneName {
@@ -94,6 +95,10 @@ header {
   grid-column: 1 / 4;
   grid-row: 2 / 3;
   width: 100%;
+}
+
+.playerOneName input, .playerTwoName input {
+  width: 350px;
 }
 
 .playerOneName button, .playerTwoName button {
