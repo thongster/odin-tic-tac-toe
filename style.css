@@ -85,16 +85,19 @@ header {
 }
 
 .playerOneName {
-  grid-column: 1 / 4;
+  grid-column: 1 / 4; 
   grid-row: 1 / 2;
+  width: 100%;
 }
 
 .playerTwoName {
   grid-column: 1 / 4;
   grid-row: 2 / 3;
+  width: 100%;
 }
 
 .playerOneName button, .playerTwoName button {
+
   margin-left: 0.25rem;
 }
 
