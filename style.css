@@ -89,21 +89,27 @@ header {
   grid-column: 1 / 4; 
   grid-row: 1 / 2;
   width: 100%;
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
 }
 
 .playerTwoName {
   grid-column: 1 / 4;
   grid-row: 2 / 3;
   width: 100%;
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
 }
 
-.playerOneName input, .playerTwoName input {
-  width: 350px;
+.labelinput {
+  display: flex;
+  flex-direction: column;  
 }
 
 .playerOneName button, .playerTwoName button {
   width: auto;
-  margin-left: 0.15rem;
 }
 
 .resetNames {
